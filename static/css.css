@@ -1,0 +1,381 @@
+/*author: Laura Silva*/
+
+body {
+    background-color: #d1d1d1;
+    margin: 0;
+}
+
+/*faf5e4*/
+
+.container{
+    width:880px;
+    padding-top: 2em;
+    padding-bottom: 20px;
+    padding-right: 3em;
+    padding-left: 3em;
+    margin:0 auto 0 auto;
+    background-color: #fff;
+    border: 0px solid #2e4862;
+    border-radius:3px;
+    box-shadow:-1px 2px 2px rgba(0,0,0,0.15);
+}
+
+/*Header for ToolShare Logo*/
+#header{
+    width:860px;
+    background-color: #d2d2d2;
+    padding-top: 2em;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-bottom: 1.5em;
+    margin:0 auto 0 auto;
+}
+
+#header img{
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+}
+
+#header a{
+    background-color: transparent;
+}
+
+/*ToolShare Title*/
+h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    color: #e0401c;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/*Title of Page*/
+h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    color: #9c2a1f;
+    text-align: left;
+    font-weight: bold;
+}
+
+/*Subtitles*/
+h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: #2e4862;
+    text-align: left;
+    font-weight:bold;
+}
+
+h4, strong{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color:#000000;
+    font-weight: bold;
+}
+
+p{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    line-height: 180%;
+    text-align:left;
+}
+
+em{
+    text-transform: italic;
+}
+
+img{
+    padding-right: 20px;
+}
+
+h3 a{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: #38775f;
+    font-weight: bold;
+}
+
+h3 a:link, a:visited{
+    font-size: 20px;
+    text-decoration: underline;
+    color: #38775f;
+}
+
+h3 a:hover, a:active{
+    font-size: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: #f64b00;
+}
+
+/*General Anchor Tags (Links)*/
+a {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #9c2a1f;
+    text-decoration: underline;
+}
+
+a:link, a:visited {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #e0401c;
+    text-decoration: underline;
+}
+
+a:hover,a:active {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #e0401c;
+    text-decoration: none;
+}
+
+.navlinks p{
+    color: #000000;
+    background-color: transparent;
+    text-align: right;
+    font-size: 12px;
+}
+
+.navlinks{
+    padding-bottom: 0px;
+    margin: 0;
+}
+
+.navlinks a{
+    text-align: right;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: underline;
+    background-color: #ffffff;
+}
+
+.navlinks a:link, a:visited{
+    color: #000000;
+    text-decoration: underline;
+}
+
+.navlinks a:hover,a:active {
+    color: #f64b00;
+    text-decoration: none;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 5px;
+    border-collapse: collapse;
+    color: #000000;
+}
+
+th {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #001733;
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+td {
+    border: 1px solid #555555;
+    padding: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    line-height: 170%;
+    text-align:left;
+}
+
+/*Table Links*/
+.table a {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: underline;
+}
+.table a:link, a:visited {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #000000;
+}
+
+.table a:hover,a:active {
+    font-family: Helvetica, Arial, sans-serif;
+    text-decoration: underline;
+    color: #f64b00;
+    background-color: transparent;
+}
+
+.formpickup * {
+    vertical-align: middle;
+}
+
+
+/*Tabs*/
+.tabs {
+    width:100%;
+    display:inline-block;
+    float: left;
+    padding: 0;
+}
+
+/*----- Tab Links -----*/
+
+/* Clearfix */
+.tab-links:after {
+    display:block;
+    clear:both;
+    content:'';
+}
+
+.tab-links{
+    padding:0;
+}
+
+.tab-links li {
+    margin:0px 2px;
+    float:left;
+    list-style:none;
+    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+    float: left;
+} 
+.tab-links a {
+    padding:6px 13px;
+    display:inline-block;
+    border-radius:4px 4px 0px 0px;
+    background:#2e4862;
+    font-size:13px;
+    text-decoration: none;
+    color:#ffffff;
+    transition:all linear 0.15s;
+}
+
+.tab-links a:hover {
+    background:#e5b051;
+    text-decoration:none;
+}
+ 
+li.active a, li.active a:hover {
+    background:#e5b051;
+    color:#ffffff;
+}
+ 
+/*----- Content of Tabs -----*/
+.tab-content {
+    padding:15px;
+    margin-top: 0;
+    border: 0px solid #2e4862;
+    border-radius:3px;
+    box-shadow:-1px 2px 2px rgba(0,0,0,0.15);
+    background:#f1f1f1;
+}
+
+.tab {
+    display:none;
+}
+
+.tab.active {
+    display:block;
+}
+
+/*Modal*/
+#mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+    
+}
+
+#boxes .window {
+    position:fixed;
+    width:440px;
+    height:200px;
+    display:none;
+    z-index:9999;
+    padding:20px;
+}
+
+/* Customize your modal window here, you can add background image too */
+/* This is where you change the background color and image thing!!!*/
+#boxes #dialog {
+    width:375px; 
+    height:203px;
+    background-color: #ffffff;
+}
+#boxes #dialog a{
+    font-size: 12px;
+}
+
+#blackout {
+    position: right;
+
+}
+
+#shedTable {
+    float:left;
+    margin:0px;
+    table-layout: fixed;
+
+}
+
+#shedTable table{
+    table-layout: fixed;
+    overflow: auto;
+    display: inline-block;
+}
+
+#shedTable td{
+    border: 0px solid #000;
+    padding-right: 0px;    
+    vertical-align: top;
+    padding-bottom: 20px;
+    overflow: auto;
+}
+
+li{
+    color:#9c2a1f;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+
+th{
+    text-align: left;
+}
+
+
+.control-label{
+    padding: 0;
+    text-align: center;
+}
+
+.col-md-4{
+    padding: 0;
+}
+.shedBox{
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.homeShedBox{
+    height: 80px;
+    padding-right: 0;
+    padding-left: 10px;
+    margin: 0;
+}

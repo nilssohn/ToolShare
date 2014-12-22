@@ -1,0 +1,11 @@
+<!--@Author Tina Howard
+Basic html that uses the welcome page to show the notification itself -->
+<!-- We need the approve and decline buttons. For the approve buttons we should have a popup that says are you sure you want this owner to borrow the tool. For decline, it will redirect or have a popup with ashort reason why you wouldn't.-->
+{% extends "welcome.html"%}
+{% block content %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<h2>{{notification.title}}</h2>
+<p>{{notification.message}}</p>
+<p><a href="/notification/delete/{{notification.id}}"/>Mark as read</a></p>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+[
+	{
+		"model": "registration.user",
+		"pk": 1,
+		"fields": {
+			"first_name": "Tall",
+			"last_name": "Paul",
+			"email":	"Tall@Paul.com",
+			"password":	"12341234",
+			"zipcode":	"14623",
+			"pick_up":	"My house"
+			"my_zone": ""
+			"question1":
+			"answer1": 
+			"question2":
+			"answer2":
+		}
+	}
+]

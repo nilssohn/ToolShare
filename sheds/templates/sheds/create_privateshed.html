@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--Nick Mattis-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>ToolShare: Create Private Shed</title>
+        {% load staticfiles %}
+
+        <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="{{ STATIC_URL }}bootstrap.js"></script>
+
+        <script src="{{ STATIC_URL }}jquery.sumoselect.min.js"></script>
+        <link href="{{ STATIC_URL }}sumoselect.css" rel="stylesheet" />
+
+        <link href="{{ STATIC_URL }}bootstrap.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.SlectBox').SumoSelect({ 
+                    csvDispCount: 3,
+                    outputAsCSV : true 
+                });
+            });
+        </script>
+        
+    </head>
+<body>
+        <div id="header">
+            <nav>
+                    <div class="navlinks">
+                        <p>Signed in as <a href="{% url 'registration:profile' %}" class="navbar-link">{{ user.full_name }}</a> /
+                        <a href="{% url 'home:get_started' %}">Help</a> /
+                        <a href="{% url 'registration:user_logout' %}">Log Out</a></p>
+                    </div>
+                    
+                    <a href="{% url 'home:welcome' %}"><img src="{{ STATIC_URL }}toolsharelogo.png"/></a>
+                    
+                    <ul class="nav nav-pills pull-right">
+                        <li><a href="{% url 'home:welcome' %}">Home</a></li>
+                        <li><a href="{% url 'sheds:browse' %}">Browse</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Tools<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'registration:my_tools' %}">My Tools</a></li>
+                                    <li><a href="{% url 'registration:tool_registration' %}">Add Tool</a></li>
+                                </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Sheds<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'sheds:home_shed' %}">Home Shed</a></li>
+                                    <li><a href="{% url 'sheds:community_shed' %}">Community Shed</a></li>
+                                    <li><a href="{% url 'sheds:private_shed' %}">Private Sheds</a></li>
+                                </ul>
+                        </li>
+                    
+                        <form action="{% url 'sheds:global_search' %}" class="navbar-form navbar-right" role="search" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="search_term" id="search_term" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Search</button>
+                        </form>
+                     </ul>
+                </nav>
+            </div>
+
+        <div class="container">
+            <h2>Create A New Private Shed</h2>
+
+                <form action="{% url 'sheds:privateshed_create' %}" method="post" class="form-horizontal" role="form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    {% if shed_name_not_unique %}<h1>The shed name you entered has already been taken</h1>{% endif %}
+                    <label for="shed_name" class="col-sm-2 control-label">Shed Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="shed_name" id="shed_name" class="form-control" required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shed_address" class="col-sm-2 control-label">Shed Address: </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="shed_address" id="shed_address" class="form-control" value="{% if shed_name_not_unique %} {{ shed_address }}{% endif %}" required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="members" class="col-sm-2 control-label">Shed Members: </label>
+                    <div class="col-sm-10">
+                        <select name="members" name="members" id="members" multiple="multiple" placeholder="Select users" class="SlectBox">
+                        {% for person in sharezone %}
+                            {% if person != user %}
+                                <option value="{{ person }}">{{ person.full_name }}, {{ person.email }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalSave">
+                  Create Shed
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalCancel">
+                  Cancel
+                </button>
+
+                <div class="modal fade" id="myModalCancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to leave this page?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a href="javascript:history.back()"><button type="button" class="btn btn-primary">Yes</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </form>
+    </div>
+</html>

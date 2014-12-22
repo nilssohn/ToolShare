@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--@author Nils Sohn-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>ToolShare: Reservation Request</title>
+        {% load staticfiles %}
+
+        <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon">
+        
+        <link href="{{ STATIC_URL }}bootstrap.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css.css" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.11.1.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jquery-ui.multidatespicker.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#start').multiDatesPicker({
+                    dateFormat: "m/d/y",
+                    minDate: 0,
+                    altField: "#start_date",
+                    maxPicks: 1,
+                });
+            });
+
+
+            $(document).ready(function(){
+                var start = $("#start_date").val();
+                $('#end').multiDatesPicker({
+                    dateFormat: "m/d/y",
+                    altField: "#end_date",
+                    minDate: 0,
+                    maxPicks: 1,
+                });
+            });
+        </script>
+
+        <script src="{{ STATIC_URL }}bootstrap.js"></script>
+
+    </head>
+
+    <body>
+            <div id="header">
+                <nav>
+                    <div class="navlinks">
+                        <p>Signed in as <a href="{% url 'registration:profile' %}" class="navbar-link">{{ user.full_name }}</a> /
+                        <a href="{% url 'home:get_started' %}">Help</a> /
+                        <a href="{% url 'registration:user_logout' %}">Log Out</a></p>
+                    </div>
+                    
+                    <a href="{% url 'home:welcome' %}"><img src="{{ STATIC_URL }}toolsharelogo.png"/></a>
+                    
+                    <ul class="nav nav-pills pull-right">
+                        <li ><a href="{% url 'home:welcome' %}">Home</a></li>
+                        <li><a href="{% url 'sheds:browse' %}">Browse</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Tools<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'registration:my_tools' %}">My Tools</a></li>
+                                    <li><a href="{% url 'registration:tool_registration' %}">Add Tool</a></li>
+                                </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Sheds<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'sheds:home_shed' %}">Home Shed</a></li>
+                                    <li><a href="{% url 'sheds:community_shed' %}">Community Shed</a></li>
+                                    <li><a href="{% url 'sheds:private_shed' %}">Private Sheds</a></li>
+                                </ul>
+                        </li>
+                    
+                        <form action="{% url 'sheds:global_search' %}" class="navbar-form navbar-right" role="search" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="search_term" id="search_term" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Search</button>
+                        </form>
+                     </ul>
+                </nav>
+            </div>
+
+			<div class="container">
+                {% if alert_message %}
+                    <div class="alert alert-danger" role="alert">{{ alert_message }}</div>
+                {% endif %}
+
+
+                <h2>Tool Request: {{ tool.tool_name }} </h2>
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                <form enctype="multipart/form-data" action="{% url 'sheds:tool_reservation' tool.id %}" method="post">
+                    {% csrf_token %}
+                    <br/>
+                    
+                    {% if reservation_list %}
+                        <tr>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    {% endif %}
+                    {% for reservation in reservation_list %}
+                        <tr>
+                            <td>{{ reservation.start_date }}</td>
+                            <td>{{ reservation.end_date }}</td>
+                        </tr>
+                    {% endfor %}
+                    <p class="formpickup">
+                        <div class="form-group">
+                            <h4>Reservation Dates:</h4>
+                                <p class="help-block">Both fields must be filled out to make reservation</p>
+                            <label for="start_date" class="col-sm-2 control-label">*Start (mm/dd/yy):</label>
+                            <div class="col-sm-10">
+                                <div id="start"></div>
+                                <input type="text" name="start_date" placeholder="(mm/dd/yy)" id="start_date" class="form-control" required readonly/>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="form-group">
+                            <label for="end_date" class="col-sm-2 control-label">*End (mm/dd/yy):</label>
+                            <div class="col-sm-10">
+                                <div id="end"></div>
+                                <input type="text" name="end_date" placeholder="(mm/dd/yy)" id="end_date" class="form-control" required readonly/>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        {% if tool.current_shed.shed_type == 3 %}
+                            <div class="form-group">
+                                <label for="textarea" class="col-sm-2 control-label">Message: </label>
+                                <div class="col-sm-10">
+                                    <textarea name="message" id="textarea" class="form-control" rows="3">I would like to borrow your tool!</textarea>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <br/>
+                        <br/>
+                        <p class="help-block">*Required</p>
+                        <br/>   
+
+                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalSave">Reserve Tool</button>
+
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalCancel">Cancel</button>
+
+                        <div class="modal fade" id="myModalCancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to cancel?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a href="javascript:history.back()"><button type="button" class="btn btn-primary">Yes</button></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+            </div>
+    </body>
+</html>
